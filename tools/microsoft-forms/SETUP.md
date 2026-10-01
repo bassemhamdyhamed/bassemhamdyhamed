@@ -1,7 +1,14 @@
 # نموذج طلب مراقبة المحاصيل — Microsoft Forms (دليل الإعداد)
 
 الملف: `agri-intake-form-quick-import.docx` — نسخة الأقمار الصناعية فقط، مطابقة لـ
-`tools/google-forms/agri-intake-form.gs`. علامة `*` = سؤال إلزامي.
+`tools/google-forms/agri-intake-form.gs`. الملف بصيغة Quick Import (سؤال مرقّم `1.`
+ثم خيارات `a.` `b.`) — الإلزامية والنصوص التوضيحية تُضبط يدوياً من الجدول أدناه.
+
+> ⚠️ **قيد مؤكَّد من Microsoft:** سؤال **Upload file** يعطّل خيار *Anyone can respond*
+> (يقتصر على موظفي المؤسسة). بما أن المجيبين مزارعون من خارج الشركة، **لا نستخدم
+> Upload file**. البديل: رابط **Request files** من OneDrive يرفع عليه العميل دون حساب،
+> وسؤال 11 نصّي يكتب فيه اسم الملف.
+> المصدر: learn.microsoft.com — Microsoft Forms file upload / Customer Voice question types.
 
 ## 1) الاستيراد (دقيقتان)
 
@@ -21,44 +28,50 @@
 |---|---|---|---|---|
 | 1 | الاسم الكامل | Text | ✅ | |
 | 2 | اسم الشركة / المزرعة | Text | — | |
-| 3 | رقم الهاتف | Text | ✅ | Subtitle = مثال الرقم |
+| 3 | رقم الهاتف | Text | ✅ | Subtitle: مع رمز الدولة، مثال: 966500000000+ أو 201000000000+ |
 | 4 | البريد الإلكتروني | Text | ✅ | لا يوجد تحقق بريد في Forms |
 | 5 | الدولة | Choice (Drop-down) | ✅ | |
 | 6 | المنطقة / المدينة | Text | ✅ | |
 | 7 | المساحة | Text | ✅ | ⋯ → **Restrictions → Number → Greater than 0** |
 | 8 | وحدة المساحة | Choice | ✅ | |
-| 9 | الإحداثيات / رابط الخريطة | Text | ✅ | Subtitle = المثال |
+| 9 | الإحداثيات / رابط الخريطة | Text | ✅ | Subtitle: مثال: 24.7136, 46.6753 أو رابط maps.app.goo.gl |
 | 10 | هل يتوفر ملف حدود؟ | Choice | ✅ | **Branching** (انظر ج) |
-| 11 | رفع ملف الحدود | **Upload file** | ✅ | حذف السؤال النصي المستورد وإنشاء Upload file بدلاً منه؛ عدد الملفات 1–3؛ الحجم 10MB؛ نوع الملف: All (لأن KML/KMZ/ZIP غير مدرجة كأنواع مستقلة) |
+| 11 | اسم ملف الحدود | Text | ✅ | Subtitle: «ارفع ملف KML / KMZ / Shapefile (ZIP) عبر هذا الرابط ثم اكتب اسم الملف هنا: ‹رابط Request files›» — انظر القسم 2-هـ |
 | 12 | نوع المحصول | Text | ✅ | |
 | 13 | مرحلة النمو | Choice | ✅ | |
-| 14 | نظام الري | Choice | ✅ | احذف خيار "أخرى" المستورد وفعّل **Add "Other" option** |
-| 15 | التحديات | Choice + **Multiple answers** | ✅ | نفس معالجة "أخرى" |
+| 14 | نظام الري | Choice | ✅ | فعّل **Add "Other" option** |
+| 15 | التحديات | Choice + **Multiple answers** | ✅ | فعّل **Add "Other" option** |
 | 16 | نوع الخدمة | Choice + **Multiple answers** | ✅ | |
 | 17 | موعد البدء | Choice | ✅ | |
 | 18 | الميزانية | Choice | — | |
 | 19 | ملاحظات | Text + **Long answer** | — | |
-| 20 | الموافقة على البيانات | Choice + Multiple answers | ✅ | النص التوضيحي في Subtitle |
+| 20 | الموافقة على البيانات | Choice | ✅ | Subtitle: «تُستخدم بياناتكم وإحداثيات المزرعة فقط لإعداد العرض الفني وتقديم الخدمة، وفق نظام حماية البيانات الشخصية في المملكة وقانون حماية البيانات الشخصية المصري رقم 151 لسنة 2020.» |
 
-احذف من النموذج أي سطر مستورد مثل "(اختيار واحد)" أو "(اختيار متعدد)" إن ظهر كنص.
+أي سؤال استُورد بنوع خاطئ: غيّر نوعه من قائمة السؤال (Text ↔ Choice).
 
 ### ج) التفرّع (Branching)
 ⋯ (أعلى النموذج) → **Branching** → سؤال 10:
-- **نعم** → Go to: سؤال 11 (رفع الملف)
+- **نعم** → Go to: سؤال 11 (اسم ملف الحدود)
 - **لا** → Go to: قسم "المحاصيل والري"
 
 ### د) إعدادات النموذج (⋯ → Settings)
-- **Who can fill out this form:** Anyone can respond (العملاء من خارج الشركة).
-  ⚠️ سؤال رفع الملف لا يعمل مع "Anyone" في كثير من الحسابات — يتطلب أن يسجّل المجيب
-  دخوله بحساب Microsoft. **القرار المقترح:** اترك "Anyone" وحوّل السؤال 11 إلى Text
-  ("رابط ملف الحدود") إن ظهر هذا القيد، أو اقبل خسارة جزء من العملاء بفرض تسجيل الدخول.
-  `[unverified — اختبره على حسابكم]`
+- **Collect responses → Anyone can respond** (العملاء من خارج الشركة).
+  إن كان الخيار رمادياً: Microsoft 365 admin center → Settings → Org settings →
+  Microsoft Forms → External sharing → فعّل *Send a link to the form and collect responses*.
 - **Customize thank you message:** "تم استلام بيانات طلبكم بنجاح. سيقوم فريق التحليل
   الجغرافي والزراعي بدراسة الموقع والتواصل معكم قريباً."
 - **Get email notification of each response:** فعّله مؤقتاً حتى تجهز Power Automate.
 - **Theme:** ارفع شعار Horizon Satellite وصورة قمر صناعي/حقل كخلفية.
 
-### هـ) ربط الردود بـ Excel
+### هـ) رابط رفع ملفات الحدود (OneDrive Request files)
+1. OneDrive → مجلد **Agri Intake / Boundary Files** (تم إنشاؤه في OneDrive الخاص بـ bassem@horizonsatellite.net).
+2. كليك يمين على المجلد → **Request files** → اكتب: «ملف حدود المزرعة» → انسخ الرابط.
+3. الصقه في Subtitle السؤال 11.
+- الرافع لا يحتاج حساباً، ولا يرى محتوى المجلد. إن لم يظهر الخيار: SharePoint admin
+  center → Sharing → فعّل *Anyone* links لـ OneDrive.
+- **Power Automate (اختياري):** عند وصول ملف جديد في المجلد → إشعار للفريق.
+
+### و) ربط الردود بـ Excel
 تبويب **Responses → Open in Excel** — يُنشئ ملف Excel في OneDrive/SharePoint يتحدث
 تلقائياً. انقله إلى موقع SharePoint الخاص بالمبيعات ليصل إليه الفريق.
 
@@ -85,7 +98,7 @@ make.powerautomate.com → **Create → Automated cloud flow**
 ## 4) قبل النشر
 
 - [ ] رد تجريبي كامل من جوال (مسار "نعم" ومسار "لا").
-- [ ] التأكد من وصول الملف المرفوع إلى OneDrive وظهوره في Excel.
+- [ ] رفع ملف KML تجريبي عبر رابط Request files من متصفح غير مسجّل الدخول.
 - [ ] مراجعة نص الموافقة مع مستشار قانوني.
 - [ ] استبدال فئات الميزانية بأسعاركم الحقيقية.
 - [ ] رابط مختصر + QR للنموذج لاستخدامه في واتساب والمعارض.

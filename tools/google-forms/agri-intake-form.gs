@@ -19,13 +19,14 @@
  *   - Lead-qualification questions: start date + budget band.
  *   - Data-processing consent (KSA PDPL / Egypt Law 151/2020).
  *   - Responses written to a linked Google Sheet; submit notifications.
+ *   - Satellite-only scope (2026-10-01): drone services removed.
  */
 
 var NOTIFY_EMAIL = ''; // e.g. 'sales@horizonsatellite.example' — leave empty to skip notifications
 
 function createAgriForm() {
   var form = FormApp.create('طلب خدمات الاستشعار عن بُعد ومراقبة المحاصيل الزراعية');
-  form.setDescription('جمع البيانات الجغرافية والزراعية لمزرعتكم لتقديم تحليلات دقيقة مبنية على الأقمار الصناعية والدرون.')
+  form.setDescription('جمع البيانات الجغرافية والزراعية لمزرعتكم لتقديم تحليلات دقيقة مبنية على صور الأقمار الصناعية.')
     .setProgressBar(true)
     .setAllowResponseEdits(false)
     .setLimitOneResponsePerUser(false);
@@ -123,8 +124,8 @@ function createAgriForm() {
       challengeCheck.createChoice('مشاكل في كفاءة الري واستهلاك المياه'),
       challengeCheck.createChoice('ظهور بؤر إصابات فطرية أو آفات حشرية'),
       challengeCheck.createChoice('مشاكل تملح في التربة أو سوء صرف'),
-      challengeCheck.createChoice('حصر دقيق لأعداد الأشجار والمسافات البينية'),
-      challengeCheck.createChoice('دراسة طبوغرافية لتسوية الأرض وتصريف السيول')
+      challengeCheck.createChoice('حصر أعداد الأشجار والمساحات المزروعة'),
+      challengeCheck.createChoice('تقييم مخاطر السيول وتجمّع المياه')
     ])
     .showOtherOption(true)
     .setRequired(true);
@@ -133,8 +134,9 @@ function createAgriForm() {
   serviceCheck.setTitle('نوع الخدمة المطلوبة')
     .setChoices([
       serviceCheck.createChoice('مراقبة دورية عبر الأقمار الصناعية (مؤشرات حيوية NDVI / NDRE)'),
-      serviceCheck.createChoice('مسح جوي فائق الدقة باستخدام الطائرات المسيرة (Drone - Multispectral/RGB)'),
-      serviceCheck.createChoice('خرائط طبوغرافية وخطوط كفافية (DEM/DSM)'),
+      serviceCheck.createChoice('صور فضائية عالية الدقة (30–50 سم) لحصر الأشجار وتقييم الحالة'),
+      serviceCheck.createChoice('رصد الإجهاد المائي ورطوبة التربة (حراري / رادار SAR)'),
+      serviceCheck.createChoice('نموذج ارتفاعات رقمي من الأقمار الصناعية (DEM) وتحليل الانحدار'),
       serviceCheck.createChoice('تقرير لمرة واحدة لتقييم الوضع الراهن'),
       serviceCheck.createChoice('اشتراك موسمي منتظم (تقارير دورية)')
     ])

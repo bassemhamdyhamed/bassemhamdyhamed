@@ -4,8 +4,8 @@ last-updated: 2026-10-01 | sources: 1 | confidence: med
 
 ## Summary
 
-Customer-facing service line selling satellite + drone analytics to farms in KSA and
-Egypt. The first concrete artifact is an Arabic Google Forms intake questionnaire that
+Customer-facing service line selling **satellite-only** analytics to farms in KSA and
+Egypt (drone services dropped by founder decision, 2026-10-01). The first concrete artifact is an Arabic Google Forms intake questionnaire that
 captures farm geometry, crop/irrigation context, pain points and requested service
 tier. It doubles as the lead-capture front end of the sales funnel. A hardened v2 of the
 script lives in `tools/google-forms/agri-intake-form.gs`.
@@ -15,12 +15,20 @@ script lives in `tools/google-forms/agri-intake-form.gs`.
 | Service | Data source | Model |
 |---|---|---|
 | Periodic vegetation-index monitoring (NDVI / NDRE) | Satellite | Subscription |
-| High-resolution aerial survey (multispectral / RGB) | Drone | Per-survey |
-| Topographic maps & contours (DEM / DSM) | Drone / satellite | Per-project |
-| One-off baseline assessment report | Satellite ± drone | One-time |
+| Very-high-resolution imagery (30–50 cm) for tree counting & condition | Commercial VHR satellite | Per-order |
+| Water stress & soil moisture | Thermal / SAR satellite | Subscription |
+| Satellite DEM & slope analysis | Satellite stereo / global DEM | Per-project |
+| One-off baseline assessment report | Satellite | One-time |
 | Seasonal subscription (periodic reports) | Satellite | Recurring |
 
+Original v1 catalog also listed drone surveys and drone-based DEM/DSM — removed in v2.
 Source: [raw/2026-10-01-agri-remote-sensing-intake-form.gs](../raw/2026-10-01-agri-remote-sensing-intake-form.gs)
+
+## Decisions
+
+- 2026-10-01 — Satellite only. Drone services removed from the form and catalog
+  (founder instruction, chat). Removes aviation-permit exposure and field-ops cost;
+  keeps the offer scalable and remote-delivered.
 
 ## Customer pain points targeted
 
@@ -52,10 +60,10 @@ Source: same as above.
 
 ## Open questions / contradictions
 
-- Pricing per hectare/feddan and per-survey drone rates not yet defined → needs a
+- Pricing per hectare/feddan and per VHR order not yet defined → needs a
   `commercial-` page (CONFIDENTIAL).
-- Drone operations in KSA (GACA) and Egypt (Ministry of Defense / civil aviation
-  permits) require licensing — no `reg-` source yet `[unverified]`.
+- Satellite-only limits: tree counting and DEM depend on VHR / stereo tasking cost;
+  Sentinel-2 (10 m) can't resolve individual trees or fine topography `[unverified]`.
 - Imagery provider for NDVI/NDRE cadence (Sentinel-2 free vs. commercial VHR) not
   documented → `tech-` gap.
 - Budget bands in v2 are placeholders `[unverified]` — founder to set real tiers.
@@ -69,4 +77,4 @@ Source: same as above.
 ## Related pages
 
 - [index](index.md)
-- Planned: `commercial-agri-pricing`, `reg-drone-operations-ksa-egypt`, `tech-eo-data-sources`
+- Planned: `commercial-agri-pricing`, `reg-imagery-licensing-ksa-egypt`, `tech-eo-data-sources`

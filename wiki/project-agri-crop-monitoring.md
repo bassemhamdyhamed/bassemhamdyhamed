@@ -29,6 +29,12 @@ Source: [raw/2026-10-01-agri-remote-sensing-intake-form.gs](../raw/2026-10-01-ag
 - 2026-10-01 — Satellite only. Drone services removed from the form and catalog
   (founder instruction, chat). Removes aviation-permit exposure and field-ops cost;
   keeps the offer scalable and remote-delivered.
+- 2026-10-01 — Platform: **Microsoft Forms** (company has a Microsoft 365 Business
+  tenant). Rationale: client data stays in the company's own Microsoft 365 account
+  (PDPL story for enterprise/government buyers), native file upload + branching,
+  Excel → Power BI → Dynamics path, alignment with Microsoft as a prospective partner.
+  Build kit: `tools/microsoft-forms/` (Quick Import .docx + SETUP.md). The Google
+  Apps Script version is kept as a fallback.
 
 ## Customer pain points targeted
 

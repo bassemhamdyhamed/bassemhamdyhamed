@@ -6,7 +6,7 @@ last-updated: 2026-10-01 | pages: 1 | sources ingested: 1
 
 | Page | Branch | Summary | Last Updated |
 |------|--------|---------|--------------|
-| [project-agri-crop-monitoring](project-agri-crop-monitoring.md) | `project-` | Agri satellite-only crop monitoring service; Arabic intake form (v1 source, v2 hardened script) | 2026-10-01 |
+| [project-agri-crop-monitoring](project-agri-crop-monitoring.md) | `project-` | Agri satellite-only crop monitoring service; Arabic intake form on Microsoft Forms (Google Apps Script fallback) | 2026-10-01 |
 
 ## Branch Coverage
 

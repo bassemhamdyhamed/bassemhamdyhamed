@@ -1,0 +1,72 @@
+# Project — Agri Remote Sensing & Crop Monitoring (مراقبة المحاصيل بالاستشعار عن بُعد)
+
+last-updated: 2026-10-01 | sources: 1 | confidence: med
+
+## Summary
+
+Customer-facing service line selling satellite + drone analytics to farms in KSA and
+Egypt. The first concrete artifact is an Arabic Google Forms intake questionnaire that
+captures farm geometry, crop/irrigation context, pain points and requested service
+tier. It doubles as the lead-capture front end of the sales funnel. A hardened v2 of the
+script lives in `tools/google-forms/agri-intake-form.gs`.
+
+## Service catalog (as offered on the intake form)
+
+| Service | Data source | Model |
+|---|---|---|
+| Periodic vegetation-index monitoring (NDVI / NDRE) | Satellite | Subscription |
+| High-resolution aerial survey (multispectral / RGB) | Drone | Per-survey |
+| Topographic maps & contours (DEM / DSM) | Drone / satellite | Per-project |
+| One-off baseline assessment report | Satellite ± drone | One-time |
+| Seasonal subscription (periodic reports) | Satellite | Recurring |
+
+Source: [raw/2026-10-01-agri-remote-sensing-intake-form.gs](../raw/2026-10-01-agri-remote-sensing-intake-form.gs)
+
+## Customer pain points targeted
+
+Weak vegetative growth / yield variance · irrigation efficiency & water use ·
+fungal/pest hotspots · soil salinity & drainage · tree counting & spacing ·
+topography for land levelling and flash-flood drainage.
+Source: same as above.
+
+## Intake data model
+
+1. Contact — name, organization, phone (WhatsApp), email, country/region.
+2. Geography — area + unit, coordinates / Google Maps pin, boundary file (KML/KMZ/SHP).
+3. Agronomy — crop, growth stage, irrigation system (drip / pivot / flood / sprinkler).
+4. Scope — challenges, requested services, notes.
+5. (v2 additions) timeline, budget band, data-processing consent.
+
+## v1 → v2 changes (tools/google-forms/agri-intake-form.gs)
+
+- Required flags added to all choice questions (v1 left boundary, stage, irrigation,
+  service optional → incomplete leads).
+- Email validation; area split into numeric field + unit dropdown so the Sheet can
+  drive per-area pricing directly.
+- Country as a dropdown (KSA / Egypt / other) → clean market routing.
+- Boundary file: FormApp cannot create file-upload items, so v2 asks for a shared link.
+- Lead qualification: start timeline + budget band (SAR / EGP).
+- Consent checkbox referencing KSA PDPL and Egypt Law 151/2020 `[unverified — confirm
+  wording with counsel]`.
+- Responses → linked Google Sheet; optional email notification on each submission.
+
+## Open questions / contradictions
+
+- Pricing per hectare/feddan and per-survey drone rates not yet defined → needs a
+  `commercial-` page (CONFIDENTIAL).
+- Drone operations in KSA (GACA) and Egypt (Ministry of Defense / civil aviation
+  permits) require licensing — no `reg-` source yet `[unverified]`.
+- Imagery provider for NDVI/NDRE cadence (Sentinel-2 free vs. commercial VHR) not
+  documented → `tech-` gap.
+- Budget bands in v2 are placeholders `[unverified]` — founder to set real tiers.
+- Farm coordinates are personal/location data; storage location of responses
+  (Google, outside KSA) may matter under PDPL cross-border transfer rules `[unverified]`.
+
+## Sources
+
+- [raw/2026-10-01-agri-remote-sensing-intake-form.gs](../raw/2026-10-01-agri-remote-sensing-intake-form.gs)
+
+## Related pages
+
+- [index](index.md)
+- Planned: `commercial-agri-pricing`, `reg-drone-operations-ksa-egypt`, `tech-eo-data-sources`

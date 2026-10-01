@@ -14,8 +14,8 @@
  *     so quotes can be computed directly from the Sheet.
  *   - Country is a dropdown (KSA / Egypt / other) for market routing.
  *   - All choice questions marked required (v1 left them optional).
- *   - Boundary-file question asks for a shared link when "yes"
- *     (FormApp cannot create file-upload items).
+ *   - Boundary-file link on its own page, shown only when "yes" (branching);
+ *     FormApp cannot create file-upload items.
  *   - Lead-qualification questions: start date + budget band.
  *   - Data-processing consent (KSA PDPL / Egypt Law 151/2020).
  *   - Responses written to a linked Google Sheet; submit notifications.
@@ -25,8 +25,11 @@
 var NOTIFY_EMAIL = ''; // e.g. 'sales@horizonsatellite.example' — leave empty to skip notifications
 
 function createAgriForm() {
-  var form = FormApp.create('طلب خدمات الاستشعار عن بُعد ومراقبة المحاصيل الزراعية');
-  form.setDescription('جمع البيانات الجغرافية والزراعية لمزرعتكم لتقديم تحليلات دقيقة مبنية على صور الأقمار الصناعية.')
+  var form = FormApp.create('طلب خدمة مراقبة المحاصيل بالأقمار الصناعية');
+  form.setDescription(
+    'تقدّم Horizon Satellite تحليلات زراعية دقيقة مبنية على صور الأقمار الصناعية والذكاء الاصطناعي: متابعة صحة النبات، كفاءة الري، رصد الإصابات، وحصر الأشجار — دون الحاجة لزيارة ميدانية.\n\n' +
+    'املأ النموذج (حوالي 5 دقائق) بمعلومات مزرعتك وموقعها، وسيتواصل معك فريقنا خلال يومي عمل بعرض فني مناسب.\n\n' +
+    'بياناتك وإحداثيات مزرعتك سرّية وتُستخدم فقط لإعداد العرض وتقديم الخدمة.')
     .setProgressBar(true)
     .setAllowResponseEdits(false)
     .setLimitOneResponsePerUser(false);
@@ -77,19 +80,24 @@ function createAgriForm() {
     .setHelpText('مثال: 24.7136, 46.6753 أو رابط maps.app.goo.gl')
     .setRequired(true);
 
+  // Choices are set after the pages exist so "No" can skip the boundary-file page
   var boundaryChoice = form.addMultipleChoiceItem();
   boundaryChoice.setTitle('هل يتوفر لديك ملف حدود المزرعة بصيغة رقمية (KML / KMZ / Shapefile)؟')
-    .setChoices([
-      boundaryChoice.createChoice('نعم'),
-      boundaryChoice.createChoice('لا، سأعتمد على رابط الخريطة لتحديد الحدود')
-    ])
     .setRequired(true);
-  form.addTextItem().setTitle('رابط ملف الحدود (Google Drive / Dropbox) — إن وُجد')
-    .setHelpText('يرجى مشاركة الملف بصلاحية "أي شخص لديه الرابط"')
-    .setRequired(false);
+
+  // صفحة ملف الحدود — تظهر فقط لمن اختار "نعم"
+  form.addPageBreakItem().setTitle('ملف حدود المزرعة');
+  form.addTextItem().setTitle('رابط ملف الحدود (Google Drive / OneDrive / Dropbox)')
+    .setHelpText('ارفع الملف على أي خدمة تخزين وشاركه بصلاحية "أي شخص لديه الرابط"، ثم الصق الرابط هنا')
+    .setRequired(true);
 
   // القسم الثالث: المحاصيل والري
-  form.addPageBreakItem().setTitle('تفاصيل المحاصيل والري');
+  var cropsPage = form.addPageBreakItem().setTitle('تفاصيل المحاصيل والري');
+
+  boundaryChoice.setChoices([
+    boundaryChoice.createChoice('نعم', FormApp.PageNavigationType.CONTINUE),
+    boundaryChoice.createChoice('لا، سأعتمد على رابط الخريطة لتحديد الحدود', cropsPage)
+  ]);
   form.addTextItem().setTitle('نوع المحصول الحالي أو المزمع زراعته').setRequired(true);
 
   var stageChoice = form.addMultipleChoiceItem();

@@ -61,7 +61,8 @@ Source: same as above.
   drive per-area pricing directly.
 - Country as a dropdown (KSA / Egypt / other) → clean market routing.
 - Boundary file: FormApp cannot create file-upload items, so v2 asks for a shared link.
-- Lead qualification: start timeline + budget band (SAR / EGP).
+- Lead qualification: start timeline + budget band in USD (<1K / 1–5K / 5–20K / >20K),
+  changed from SAR/EGP by founder 2026-10-01.
 - Consent checkbox referencing KSA PDPL and Egypt Law 151/2020 `[unverified — confirm
   wording with counsel]`.
 - Responses → linked Google Sheet; optional email notification on each submission.
@@ -74,7 +75,7 @@ Source: same as above.
   Sentinel-2 (10 m) can't resolve individual trees or fine topography `[unverified]`.
 - Imagery provider for NDVI/NDRE cadence (Sentinel-2 free vs. commercial VHR) not
   documented → `tech-` gap.
-- Budget bands in v2 are placeholders `[unverified]` — founder to set real tiers.
+- Budget bands (USD) are indicative `[unverified]` — align with real price list once set.
 - Farm coordinates are personal/location data; storage location of responses
   (Google, outside KSA) may matter under PDPL cross-border transfer rules `[unverified]`.
 

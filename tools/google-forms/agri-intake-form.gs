@@ -161,11 +161,12 @@ function createAgriForm() {
     .setRequired(true);
 
   var budget = form.addMultipleChoiceItem();
-  budget.setTitle('الميزانية التقديرية للخدمة (اختياري)')
+  budget.setTitle('الميزانية التقديرية للخدمة (بالدولار الأمريكي)')
     .setChoices([
-      budget.createChoice('أقل من 5,000 ريال / 50,000 جنيه'),
-      budget.createChoice('5,000 – 20,000 ريال / 50,000 – 200,000 جنيه'),
-      budget.createChoice('أكثر من 20,000 ريال / 200,000 جنيه'),
+      budget.createChoice('أقل من 1,000 دولار'),
+      budget.createChoice('من 1,000 إلى 5,000 دولار'),
+      budget.createChoice('من 5,000 إلى 20,000 دولار'),
+      budget.createChoice('أكثر من 20,000 دولار'),
       budget.createChoice('غير محددة بعد')
     ])
     .setRequired(false);

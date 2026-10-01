@@ -144,9 +144,7 @@ function createAgriForm() {
       serviceCheck.createChoice('مراقبة دورية عبر الأقمار الصناعية (مؤشرات حيوية NDVI / NDRE)'),
       serviceCheck.createChoice('صور فضائية عالية الدقة (30–50 سم) لحصر الأشجار وتقييم الحالة'),
       serviceCheck.createChoice('رصد الإجهاد المائي ورطوبة التربة (حراري / رادار SAR)'),
-      serviceCheck.createChoice('نموذج ارتفاعات رقمي من الأقمار الصناعية (DEM) وتحليل الانحدار'),
-      serviceCheck.createChoice('تقرير لمرة واحدة لتقييم الوضع الراهن'),
-      serviceCheck.createChoice('اشتراك موسمي منتظم (تقارير دورية)')
+      serviceCheck.createChoice('نموذج ارتفاعات رقمي من الأقمار الصناعية (DEM) وتحليل الانحدار')
     ])
     .setRequired(true);
 
@@ -160,16 +158,18 @@ function createAgriForm() {
     ])
     .setRequired(true);
 
+  // Report frequency doubles as the budget band (indicative USD per season)
   var budget = form.addMultipleChoiceItem();
-  budget.setTitle('الميزانية التقديرية للخدمة (بالدولار الأمريكي)')
+  budget.setTitle('عدد التقارير والميزانية التقديرية')
+    .setHelpText('الأسعار تقديرية بالدولار الأمريكي للموسم الزراعي الواحد (حوالي 6 أشهر)، وتختلف حسب المساحة ونوع الخدمة.')
     .setChoices([
-      budget.createChoice('أقل من 1,000 دولار'),
-      budget.createChoice('من 1,000 إلى 5,000 دولار'),
-      budget.createChoice('من 5,000 إلى 20,000 دولار'),
-      budget.createChoice('أكثر من 20,000 دولار'),
-      budget.createChoice('غير محددة بعد')
+      budget.createChoice('تقرير واحد لتقييم الوضع الراهن — من 1,000 إلى 3,000 دولار'),
+      budget.createChoice('تقارير شهرية طوال الموسم — من 3,000 إلى 10,000 دولار'),
+      budget.createChoice('تقارير أسبوعية طوال الموسم — من 10,000 إلى 25,000 دولار'),
+      budget.createChoice('مشروع مؤسسي / عدة مزارع — أكثر من 25,000 دولار'),
+      budget.createChoice('غير محدد بعد — أحتاج استشارة')
     ])
-    .setRequired(false);
+    .setRequired(true);
 
   form.addParagraphTextItem().setTitle('ملاحظات أو متطلبات خاصة');
 

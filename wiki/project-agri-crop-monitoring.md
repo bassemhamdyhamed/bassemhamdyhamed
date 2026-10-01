@@ -18,8 +18,7 @@ script lives in `tools/google-forms/agri-intake-form.gs`.
 | Very-high-resolution imagery (30–50 cm) for tree counting & condition | Commercial VHR satellite | Per-order |
 | Water stress & soil moisture | Thermal / SAR satellite | Subscription |
 | Satellite DEM & slope analysis | Satellite stereo / global DEM | Per-project |
-| One-off baseline assessment report | Satellite | One-time |
-| Seasonal subscription (periodic reports) | Satellite | Recurring |
+| Reporting cadence: one-off · monthly · weekly (per season) | Satellite | Tiered by frequency |
 
 Original v1 catalog also listed drone surveys and drone-based DEM/DSM — removed in v2.
 Source: [raw/2026-10-01-agri-remote-sensing-intake-form.gs](../raw/2026-10-01-agri-remote-sensing-intake-form.gs)
@@ -61,8 +60,10 @@ Source: same as above.
   drive per-area pricing directly.
 - Country as a dropdown (KSA / Egypt / other) → clean market routing.
 - Boundary file: FormApp cannot create file-upload items, so v2 asks for a shared link.
-- Lead qualification: start timeline + budget band in USD (<1K / 1–5K / 5–20K / >20K),
-  changed from SAR/EGP by founder 2026-10-01.
+- Lead qualification: start timeline + package question tying report frequency to an
+  indicative USD budget per season (~6 months): one-off $1–3K · monthly $3–10K ·
+  weekly $10–25K · enterprise >$25K (founder direction 2026-10-01; no sub-$1K tier).
+  One-off/seasonal options removed from the service-type question to avoid overlap.
 - Consent checkbox referencing KSA PDPL and Egypt Law 151/2020 `[unverified — confirm
   wording with counsel]`.
 - Responses → linked Google Sheet; optional email notification on each submission.
